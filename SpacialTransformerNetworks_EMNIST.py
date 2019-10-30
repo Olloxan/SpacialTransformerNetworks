@@ -10,7 +10,7 @@ from torchvision import datasets, transforms
 
 import numpy as np
 
-from Net import Net
+from Net import Net_EMNIST
 
 plt.ion()
 
@@ -92,20 +92,23 @@ def visualize_stn():
 
 # Training Dataset
 if __name__ == '__main__':
+
+    transformations = transforms.Compose([
+        transforms.RandomRotation([90,90]),
+        transforms.RandomVerticalFlip(1),
+        transforms.ToTensor(),
+        transforms.Normalize((0.1307,), (0.3081,))
+        ])
+
     train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST(root='.', train=True, download=True, 
-                       transform=transforms.Compose([
-                           transforms.ToTensor(),
-                           transforms.Normalize((0.1307,), (0.3081,))
-                           ])), batch_size=64, shuffle=True, num_workers=4)
+        datasets.EMNIST(root='.', split='balanced', train=True, download=True, 
+                       transform=transformations), batch_size=64, shuffle=True, num_workers=4)
 
     test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST(root='.', train=False, transform=transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.1307,),(0.3081,))
-            ])), batch_size=64, shuffle=True, num_workers=4)
+        datasets.EMNIST(root='.', split='balanced', train=False, 
+                        transform=transformations), batch_size=64, shuffle=True, num_workers=4)
 
-    myNet = Net().to(device)
+    myNet = Net_EMNIST().to(device)
 
     optimizer = optim.SGD(myNet.parameters(), lr=0.01)
 
@@ -114,7 +117,7 @@ if __name__ == '__main__':
         test()
 
     state_dict = myNet.state_dict()
-    torch.save(state_dict, "Models/MNIST_Spacial")
+    torch.save(state_dict, "Models/EMNIST_Spacial")
     print("Network Saved")
     # Visualize the STN transformation on some input batch
     visualize_stn()
