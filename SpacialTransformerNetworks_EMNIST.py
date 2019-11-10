@@ -17,7 +17,7 @@ plt.ion()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def train(eopch):
+def train(epoch):
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target =data.to(device), target.to(device)
 
@@ -92,6 +92,7 @@ def visualize_stn():
 
 # Training Dataset
 if __name__ == '__main__':
+    cudnnVersion = torch.backends.cudnn.version()
 
     transformations = transforms.Compose([
         transforms.RandomRotation([90,90]),
@@ -101,23 +102,23 @@ if __name__ == '__main__':
         ])
 
     train_loader = torch.utils.data.DataLoader(
-        datasets.EMNIST(root='.', split='balanced', train=True, download=True, 
-                       transform=transformations), batch_size=64, shuffle=True, num_workers=4)
+        datasets.EMNIST(root='.', split='balanced', train=True, download=False, 
+                       transform=transformations), batch_size=32, shuffle=True, num_workers=4)
 
     test_loader = torch.utils.data.DataLoader(
         datasets.EMNIST(root='.', split='balanced', train=False, 
-                        transform=transformations), batch_size=64, shuffle=True, num_workers=4)
+                        transform=transformations), batch_size=32, shuffle=True, num_workers=4)
 
     myNet = Net_EMNIST().to(device)
 
     optimizer = optim.SGD(myNet.parameters(), lr=0.01)
 
-    for epoch in range(1, 20 + 1):
-        train(epoch)
+    for epoch in range(1):#, 20 + 1):
+        #train(epoch)
         test()
 
-    state_dict = myNet.state_dict()
-    torch.save(state_dict, "Models/EMNIST_Spacial")
+    #state_dict = myNet.state_dict()
+    #torch.save(state_dict, "Models/EMNIST_Spacial")
     print("Network Saved")
     # Visualize the STN transformation on some input batch
     visualize_stn()
