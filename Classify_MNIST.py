@@ -44,7 +44,7 @@ def visualize_stn():
         myNet.eval()
         dataTuple = next(iter(test_loader)) 
         data = dataTuple[0].to(device)
-        label = dataTuple[1]
+        labels = dataTuple[1]
 
         input_tensor = data.cpu()
         transformed_input_tensor = myNet.stn(data).cpu()
@@ -53,7 +53,9 @@ def visualize_stn():
         
         prediction = output.max(1, keepdim=True)[1]
         
-        print(prediction.item())
+        for label in labels:
+            print(label)
+        #print(prediction.item())
         
         in_grid = convert_image_np(
             torchvision.utils.make_grid(input_tensor))
@@ -75,7 +77,7 @@ if __name__ == '__main__':
         datasets.MNIST(root='.', train=False, transform=transforms.Compose([
             transforms.ToTensor(),
             transforms.Normalize((0.1307,),(0.3081,))
-            ])), batch_size=1, shuffle=True, num_workers=4)
+            ])), batch_size=10, shuffle=True, num_workers=4)
 
      myNet = Net_MNIST().to(device)
      pretrained_dict = torch.load("Models/MNIST_Spacial", map_location='cpu')
