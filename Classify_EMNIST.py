@@ -83,7 +83,7 @@ if __name__ == '__main__':
             transforms.Normalize((0.1307,),(0.3081,))
             ])), batch_size=10, shuffle=True, num_workers=4)
 
-     myNet = Net_EMNIST().to(device)
+     myNet = Net_EMNIST()
      pretrained_dict = torch.load("Models/EMNIST_Spacial", map_location='cpu')
      myNet.load_state_dict(pretrained_dict)
      
