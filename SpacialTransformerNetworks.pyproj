@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>2ff63c1f-2c54-4b6b-a951-00135d9d593c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Classify_EMNIST.py</StartupFile>
+    <StartupFile>Classify_Real_Letter.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classify_EMNIST.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classify_Real_Letter.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classify_MNIST.py">
