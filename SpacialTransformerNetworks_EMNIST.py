@@ -10,7 +10,7 @@ from torchvision import datasets, transforms
 
 import numpy as np
 
-from Net import Net_EMNIST_NEU
+from Net import Net_EMNIST_3
 
 plt.ion()
 
@@ -109,7 +109,7 @@ if __name__ == '__main__':
         datasets.EMNIST(root='.', split='balanced', train=False, 
                         transform=transformations), batch_size=64, shuffle=True, num_workers=4)
 
-    myNet = Net_EMNIST_NEU().to(device)
+    myNet = Net_EMNIST_3().to(device)
 
     optimizer = optim.SGD(myNet.parameters(), lr=0.01)
 
@@ -118,7 +118,7 @@ if __name__ == '__main__':
         test()
 
     state_dict = myNet.state_dict()
-    torch.save(state_dict, "Models/EMNIST_NEU_Spacial")
+    torch.save(state_dict, "Models/EMNIST_Spacial_3")
     print("Network Saved")
     # Visualize the STN transformation on some input batch
     visualize_stn()

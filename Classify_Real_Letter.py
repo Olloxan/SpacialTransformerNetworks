@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from torchvision import transforms
 import torch
 
-from Net import Net_EMNIST
+from Net import Net_EMNIST_1
 
 plt.ion()
 
@@ -141,7 +141,7 @@ if __name__ == '__main__':
     img = myTransforms(img)
     img = img.unsqueeze(0)
 
-    myNet = Net_EMNIST().to(device)
+    myNet = Net_EMNIST_1().to(device)
     pretrained_dict = torch.load("Models/EMNIST_Spacial", map_location='cpu')
     myNet.load_state_dict(pretrained_dict)
 
