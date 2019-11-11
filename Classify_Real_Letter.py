@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from torchvision import transforms
 import torch
 
-from Net import Net_EMNIST_1
+from Net import Net_EMNIST_3
 
 plt.ion()
 
@@ -18,7 +18,7 @@ def showimg(image, title):
 
 if __name__ == '__main__':
     # input
-    img = cv2.imread("TestData/t_1.jpg")
+    img = cv2.imread("TestData/1_1.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     showimg(img, "input")
     
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     # crop
     img = img[top:bottom, left:right].copy()
     showimg(img, "cropping")
-
+    plt.ioff()
     # resize
     img = cv2.resize(img, (28,28),interpolation=cv2.INTER_CUBIC)
 
@@ -141,11 +141,17 @@ if __name__ == '__main__':
     img = myTransforms(img)
     img = img.unsqueeze(0)
 
-    myNet = Net_EMNIST_1().to(device)
-    pretrained_dict = torch.load("Models/EMNIST_Spacial", map_location='cpu')
+    myNet = Net_EMNIST_3().to(device)
+    pretrained_dict = torch.load("Models/EMNIST_Spacial_3", map_location='cpu')
     myNet.load_state_dict(pretrained_dict)
 
     output = myNet(img)
+    test = np.exp(output.detach().squeeze(0).numpy())
+    #plt.plot(test)
+    y_pos = np.arange(len(test))
+    plt.bar(y_pos, test, align='center')    
+    plt.xticks(y_pos)
+    plt.show()
     prediction = output.max(1, keepdim=True)[1]
     print(prediction.item())
     x=5
