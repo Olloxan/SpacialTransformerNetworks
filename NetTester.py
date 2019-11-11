@@ -6,7 +6,7 @@ from torchvision import datasets, transforms
 
 import matplotlib.pyplot as plt
 
-from Net import Net_EMNIST
+from Net import Net_EMNIST_NEU
 
 
 
@@ -77,8 +77,8 @@ if __name__ == '__main__':
             datasets.EMNIST(root='.', split='balanced', train=False, 
                             transform=transformations), batch_size=32, shuffle=True, num_workers=4)
 
-    myNet = Net_EMNIST()
-    pretrained_dict = torch.load("Models/EMNIST_Spacial", map_location='cpu')
+    myNet = Net_EMNIST_NEU()
+    pretrained_dict = torch.load("Models/EMNIST_Spacial_NEU", map_location='cpu')
     myNet.load_state_dict(pretrained_dict)
     myNet.to(device)
 
