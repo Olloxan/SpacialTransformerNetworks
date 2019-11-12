@@ -41,9 +41,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SpacialTransformerNetworks_MNIST.py" />
+    <Compile Include="Utilitiy\LetterPreprocessor.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilitiy\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="CondaEnv|CondaEnv|TorchConda" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilitiy\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
