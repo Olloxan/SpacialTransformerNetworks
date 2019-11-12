@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -12,6 +13,11 @@ from Utilitiy.LetterPreprocessor import LetterPreprocessor
 device = 'cpu' # torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 processor = LetterPreprocessor()
+
+halloweltpath = "TestData/HalloWelt/"
+mlisttollpath = "TestData/DasMLMeetupisttoll/"
+
+path = mlisttollpath
 
 letterdict =	{
   0: "0",
@@ -89,39 +95,55 @@ if __name__ == '__main__':
     ###############################
     # input
    
-    images = torch.FloatTensor()
-    for i in range(9):        
-        img = cv2.imread("TestData/%s.jpg" % (i+1))
-        #img = processor.processImageShow(img)
-        img = processor.processImage(img)    
-        img = myTransforms(img).unsqueeze(0)    
-        images = torch.cat((images,img), 0)
+   
+    words = []
+    folders = os.listdir(path)
+    for folderName in folders:  
+        currentfolderpath = path + folderName + "/"
+        files = os.listdir(currentfolderpath)
         
+        images = torch.FloatTensor()
+        for i in range(len(files)):            
+            img = cv2.imread(currentfolderpath + "%s.jpg" % (i+1))
+            #img = processor.processImageShow(img)
+            img = processor.processImage(img)    
+            img = myTransforms(img).unsqueeze(0)    
+            images = torch.cat((images,img), 0)
+        words.append(images)
   
 
     with torch.no_grad():
         # alle mit einem mal durchjagen
         myNet.eval()        
-        
-        transformed_input_tensor = myNet.stn(images).cpu() # transformierter Input
-        output = myNet(images)                             # klassifizierter Input
+      
+        transformcat = torch.cat(words, 0)
+        transformed_input_tensor = myNet.stn(transformcat).cpu() # transformierter Input                                     
         
         in_grid = convert_image_np(
-            torchvision.utils.make_grid(images))
+            torchvision.utils.make_grid(transformcat))
 
         out_grid = convert_image_np(
             torchvision.utils.make_grid(transformed_input_tensor))
-        prediction = output.max(1, keepdim=True)[1]
+                        
         # Plot the results side-by-side
-        _, ax = plt.subplots(1, 2)
+        _, ax = plt.subplots(2, 1)
         ax[0].imshow(in_grid)
         ax[0].set_title('Dataset Images')
 
         ax[1].imshow(out_grid)
         ax[1].set_title('Transformed Images')
         
+        outputstring = ""
+        for word in words:            
+            output = myNet(word)
+            prediction = output.max(1, keepdim=True)[1].squeeze(1).numpy()
+            
+            for sign in prediction:
+                outputstring += letterdict[sign]
+            outputstring += " "
+        
         plt.figure()
-        plt.text(0, 0.5,"eggs", size=50)
+        plt.text(0, 0.5, outputstring, size=50)
         plt.axis('off')
         plt.show()
     
@@ -134,6 +156,3 @@ if __name__ == '__main__':
     #plt.xticks(y_pos)
     #plt.show()
     
-    
-    #print(prediction.item())
-    x=5
