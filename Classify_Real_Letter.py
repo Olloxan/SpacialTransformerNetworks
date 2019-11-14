@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import torchvision
-import torchsummary
+#import torchsummary
 from torchvision import transforms
 import torch
 
@@ -105,8 +105,8 @@ if __name__ == '__main__':
         images = torch.FloatTensor()
         for i in range(len(files)):            
             img = cv2.imread(currentfolderpath + "%s.jpg" % (i+1))
-            #img = processor.processImageShow(img)
-            img = processor.processImage(img)    
+            img = processor.processImageShow(img)
+            #img = processor.processImage(img)    
             img = myTransforms(img).unsqueeze(0)    
             images = torch.cat((images,img), 0)
         words.append(images)
