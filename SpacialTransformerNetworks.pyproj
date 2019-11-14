@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>2ff63c1f-2c54-4b6b-a951-00135d9d593c</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>SpacialTransformerNetworks_EMNIST.py</StartupFile>
+    <StartupFile>Classify_Real_Letter.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,19 +22,40 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classify_EMNIST.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classify_Real_Letter.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classify_MNIST.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Net.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NetTester.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SpacialTransformerNetworks_EMNIST.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SpacialTransformerNetworks_MNIST.py" />
+    <Compile Include="Utilitiy\LetterPreprocessor.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilitiy\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="CondaEnv|CondaEnv|TorchConda" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilitiy\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

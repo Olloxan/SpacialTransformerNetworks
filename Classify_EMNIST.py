@@ -5,9 +5,9 @@ import torch
 import torchvision
 from torchvision import datasets, transforms
 
-from Net import Net_MNIST
+from Net import Net_EMNIST_1
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = "cpu" # torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def test():
     with torch.no_grad():
@@ -51,10 +51,12 @@ def visualize_stn():
 
         output = myNet(data)
         
-        prediction = output.max(1, keepdim=True)[1]
+        test = output[0].cpu().numpy()
+
+        predictions = output.max(1, keepdim=True)[1]
         
-        for label in labels:
-            print(label)
+        for tuple in zip(labels, predictions):
+            print(tuple[0].item(), tuple[1].item())
         #print(prediction.item())
         
         in_grid = convert_image_np(
@@ -74,13 +76,15 @@ def visualize_stn():
 # Training Dataset
 if __name__ == '__main__':
      test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST(root='.', train=False, transform=transforms.Compose([
+        datasets.EMNIST(root='.', split='balanced', train=False, transform=transforms.Compose([
+            transforms.RandomRotation([90,90]),
+            transforms.RandomVerticalFlip(1),
             transforms.ToTensor(),
             transforms.Normalize((0.1307,),(0.3081,))
             ])), batch_size=10, shuffle=True, num_workers=4)
 
-     myNet = Net_MNIST().to(device)
-     pretrained_dict = torch.load("Models/MNIST_Spacial", map_location='cpu')
+     myNet = Net_EMNIST_1()
+     pretrained_dict = torch.load("Models/EMNIST_Spacial_1", map_location='cpu')
      myNet.load_state_dict(pretrained_dict)
      
      visualize_stn()
