@@ -5,7 +5,7 @@ import torch
 import torchvision
 from torchvision import datasets, transforms
 
-from Net import Net_EMNIST_1
+from Net import Net_EMNIST_2
 
 device = "cpu" # torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -83,8 +83,8 @@ if __name__ == '__main__':
             transforms.Normalize((0.1307,),(0.3081,))
             ])), batch_size=10, shuffle=True, num_workers=4)
 
-     myNet = Net_EMNIST_1()
-     pretrained_dict = torch.load("Models/EMNIST_Spacial_1", map_location='cpu')
+     myNet = Net_EMNIST_2()
+     pretrained_dict = torch.load("Models/EMNIST_Spacial_2", map_location='cpu')
      myNet.load_state_dict(pretrained_dict)
      
      visualize_stn()

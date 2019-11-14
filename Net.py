@@ -55,8 +55,7 @@ class Net_MNIST(nn.Module):
 
 class Net_EMNIST_1(nn.Module):
     def __init__(self):
-
-        super(Net_EMNIST, self).__init__()
+        super(Net_EMNIST_1, self).__init__()
         self.conv = nn.Sequential(
             nn.Conv2d(1,32, kernel_size=3),
             nn.ReLU(),
