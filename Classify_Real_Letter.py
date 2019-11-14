@@ -17,7 +17,7 @@ processor = LetterPreprocessor()
 halloweltpath = "TestData/HalloWelt/"
 mlisttollpath = "TestData/DasMLMeetupisttoll/"
 
-path = mlisttollpath
+path = halloweltpath
 
 letterdict =	{
   0: "0",
@@ -105,8 +105,8 @@ if __name__ == '__main__':
         images = torch.FloatTensor()
         for i in range(len(files)):            
             img = cv2.imread(currentfolderpath + "%s.jpg" % (i+1))
-            img = processor.processImageShow(img)
-            #img = processor.processImage(img)    
+            #img = processor.processImageShow(img)
+            img = processor.processImage(img)    
             img = myTransforms(img).unsqueeze(0)    
             images = torch.cat((images,img), 0)
         words.append(images)
