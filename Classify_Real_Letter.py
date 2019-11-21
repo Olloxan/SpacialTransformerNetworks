@@ -17,7 +17,7 @@ processor = LetterPreprocessor()
 halloweltpath = "TestData/HalloWelt/"
 mlisttollpath = "TestData/DasMLMeetupisttoll/"
 
-path = halloweltpath
+path = mlisttollpath
 
 letterdict =	{
   0: "0",
