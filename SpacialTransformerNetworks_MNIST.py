@@ -109,9 +109,9 @@ if __name__ == '__main__':
 
     optimizer = optim.SGD(myNet.parameters(), lr=0.01)
 
-    for epoch in range(1, 20 + 1):
-        train(epoch)
-        test()
+    #for epoch in range(1, 20 + 1):
+    #    train(epoch)
+    #    test()
 
     state_dict = myNet.state_dict()
     torch.save(state_dict, "Models/MNIST_Spacial")

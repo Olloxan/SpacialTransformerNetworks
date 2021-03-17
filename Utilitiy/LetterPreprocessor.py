@@ -23,6 +23,7 @@ class LetterPreprocessor():
         thresh = self.selectThreshold(image)
         self.plotHistogram(image, thresh)
         
+        #thresh = 100
         # thresholding
         image = self.thresholdImage(image, thresh)
         self.showimg(image, "thresholding")
@@ -51,7 +52,8 @@ class LetterPreprocessor():
        
         # histogram
         thresh = self.selectThreshold(image)
-                
+            
+        #thresh = 100
         # thresholding
         image = self.thresholdImage(image, thresh)
         
@@ -84,6 +86,7 @@ class LetterPreprocessor():
 
     def selectThreshold(self, image):
         hist, _ = np.histogram(image.flatten(),256, [0, 256])  
+        hist[255] = 0
         threshold = 256
         for i in range(len(hist)):
             currentBinValue = hist[-i]
