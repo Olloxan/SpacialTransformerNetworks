@@ -95,8 +95,7 @@ if __name__ == '__main__':
     
     ###############################
     # input
-   
-   
+      
     words = []
     folders = os.listdir(path)
     for folderName in folders:  
@@ -105,8 +104,8 @@ if __name__ == '__main__':
         
         images = torch.FloatTensor()
         for i in range(len(files)):            
-            img = cv2.imread(currentfolderpath + "%s.jpg" % (i+1))
-            #img = processor.processImageShow(img)
+            img = cv2.imread(currentfolderpath + "%s.jpg" % (i+1))                       
+            #img = processor.processImageShow(img)             
             img = processor.processImage(img)    
             img = myTransforms(img).unsqueeze(0)    
             images = torch.cat((images,img), 0)

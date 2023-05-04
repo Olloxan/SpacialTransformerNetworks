@@ -11,7 +11,8 @@
     <OutputPath>.</OutputPath>
     <Name>SpacialTransformerNetworks</Name>
     <RootNamespace>SpacialTransformerNetworks</RootNamespace>
-    <InterpreterId>CondaEnv|CondaEnv|TorchConda</InterpreterId>
+    <InterpreterId>
+    </InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,10 +50,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="CondaEnv|CondaEnv|TorchConda" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ReadMe.txt" />
+    <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utilitiy\" />
